@@ -1,0 +1,812 @@
+{
+  "match_id": "c4354f78-852a-44bb-8dcb-b80d66b72957.Miscrits",
+  "object_id": 4,
+  "start_time": "18:53:32.622",
+  "enemy": "Stalkra (#563)",
+  "total_actions": 19,
+  "action_log": [
+    {
+      "time": "18:53:33.051",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": 0,
+      "payload": {
+        "type": "Wild",
+        "pvp": false,
+        "player1": {
+          "user_id": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+          "username": "unleavish",
+          "clan": null,
+          "level": 336,
+          "team_order": [
+            10297114,
+            10022587,
+            10077390,
+            10306945
+          ],
+          "potions": [
+            {
+              "potion_id": 34,
+              "potion": {
+                "id": 34,
+                "effect": {},
+                "type": "GlobalBoss",
+                "level": 1,
+                "name": "Weakening Serum"
+              },
+              "quantity": 1
+            },
+            {
+              "potion": {
+                "effect": {
+                  "pa": 20
+                },
+                "type": "Buff",
+                "level": 30,
+                "name": "Mythical Toughen",
+                "id": 30
+              },
+              "quantity": 2,
+              "potion_id": 30
+            },
+            {
+              "quantity": 5,
+              "potion_id": 29,
+              "potion": {
+                "id": 29,
+                "effect": {
+                  "pa": 17
+                },
+                "type": "Buff",
+                "level": 20,
+                "name": "Epic Toughen"
+              }
+            },
+            {
+              "quantity": 5,
+              "potion_id": 12,
+              "potion": {
+                "type": "Buff",
+                "level": 30,
+                "name": "Mythical Defiance",
+                "id": 12,
+                "effect": {
+                  "ed": 20
+                }
+              }
+            },
+            {
+              "quantity": 6,
+              "potion_id": 6,
+              "potion": {
+                "id": 6,
+                "effect": {
+                  "hp": 60
+                },
+                "type": "Heal",
+                "level": 30,
+                "name": "Mythical Heal"
+              }
+            },
+            {
+              "quantity": 6,
+              "potion_id": 23,
+              "potion": {
+                "id": 23,
+                "effect": {
+                  "pd": 17
+                },
+                "type": "Buff",
+                "level": 20,
+                "name": "Epic Fortify"
+              }
+            },
+            {
+              "quantity": 8,
+              "potion_id": 11,
+              "potion": {
+                "effect": {
+                  "ed": 17
+                },
+                "type": "Buff",
+                "level": 20,
+                "name": "Epic Defiance",
+                "id": 11
+              }
+            },
+            {
+              "quantity": 11,
+              "potion_id": 5,
+              "potion": {
+                "type": "Heal",
+                "level": 20,
+                "name": "Epic Heal",
+                "id": 5,
+                "effect": {
+                  "hp": 50
+                }
+              }
+            },
+            {
+              "quantity": 14,
+              "potion_id": 17,
+              "potion": {
+                "type": "Buff",
+                "level": 20,
+                "name": "Epic Enchant",
+                "id": 17,
+                "effect": {
+                  "ea": 17
+                }
+              }
+            },
+            {
+              "quantity": 15,
+              "potion_id": 16,
+              "potion": {
+                "effect": {
+                  "ea": 14
+                },
+                "type": "Buff",
+                "level": 15,
+                "name": "Massive Enchant",
+                "id": 16
+              }
+            },
+            {
+              "quantity": 15,
+              "potion_id": 22,
+              "potion": {
+                "name": "Massive Fortify",
+                "id": 22,
+                "effect": {
+                  "pd": 14
+                },
+                "type": "Buff",
+                "level": 15
+              }
+            },
+            {
+              "potion_id": 27,
+              "potion": {
+                "id": 27,
+                "effect": {
+                  "pa": 11
+                },
+                "type": "Buff",
+                "level": 10,
+                "name": "Powerful Toughen"
+              },
+              "quantity": 17
+            },
+            {
+              "quantity": 18,
+              "potion_id": 20,
+              "potion": {
+                "name": "Major Fortify",
+                "id": 20,
+                "effect": {
+                  "pd": 8
+                },
+                "type": "Buff",
+                "level": 5
+              }
+            },
+            {
+              "quantity": 20,
+              "potion_id": 4,
+              "potion": {
+                "name": "Massive Heal",
+                "id": 4,
+                "effect": {
+                  "hp": 40
+                },
+                "type": "Heal",
+                "level": 15
+              }
+            },
+            {
+              "quantity": 21,
+              "potion_id": 8,
+              "potion": {
+                "id": 8,
+                "effect": {
+                  "ed": 8
+                },
+                "type": "Buff",
+                "level": 5,
+                "name": "Major Defiance"
+              }
+            },
+            {
+              "quantity": 21,
+              "potion_id": 10,
+              "potion": {
+                "id": 10,
+                "effect": {
+                  "ed": 14
+                },
+                "type": "Buff",
+                "level": 15,
+                "name": "Massive Defiance"
+              }
+            },
+            {
+              "quantity": 22,
+              "potion_id": 2,
+              "potion": {
+                "id": 2,
+                "effect": {
+                  "hp": 20
+                },
+                "type": "Heal",
+                "level": 5,
+                "name": "Major Heal"
+              }
+            },
+            {
+              "quantity": 23,
+              "potion_id": 15,
+              "potion": {
+                "id": 15,
+                "effect": {
+                  "ea": 11
+                },
+                "type": "Buff",
+                "level": 10,
+                "name": "Powerful Enchant"
+              }
+            },
+            {
+              "potion_id": 14,
+              "potion": {
+                "id": 14,
+                "effect": {
+                  "ea": 8
+                },
+                "type": "Buff",
+                "level": 5,
+                "name": "Major Enchant"
+              },
+              "quantity": 23
+            },
+            {
+              "potion": {
+                "type": "Buff",
+                "level": 10,
+                "name": "Powerful Defiance",
+                "id": 9,
+                "effect": {
+                  "ed": 11
+                }
+              },
+              "quantity": 23,
+              "potion_id": 9
+            },
+            {
+              "potion": {
+                "type": "Heal",
+                "level": 10,
+                "name": "Powerful Heal",
+                "id": 3,
+                "effect": {
+                  "hp": 30
+                }
+              },
+              "quantity": 24,
+              "potion_id": 3
+            },
+            {
+              "quantity": 25,
+              "potion_id": 26,
+              "potion": {
+                "id": 26,
+                "effect": {
+                  "pa": 8
+                },
+                "type": "Buff",
+                "level": 5,
+                "name": "Major Toughen"
+              }
+            },
+            {
+              "potion": {
+                "id": 21,
+                "effect": {
+                  "pd": 11
+                },
+                "type": "Buff",
+                "level": 10,
+                "name": "Powerful Fortify"
+              },
+              "quantity": 26,
+              "potion_id": 21
+            },
+            {
+              "quantity": 28,
+              "potion_id": 28,
+              "potion": {
+                "level": 15,
+                "name": "Massive Toughen",
+                "id": 28,
+                "effect": {
+                  "pa": 14
+                },
+                "type": "Buff"
+              }
+            },
+            {
+              "quantity": 34,
+              "potion_id": 25,
+              "potion": {
+                "level": 1,
+                "name": "Minor Toughen",
+                "id": 25,
+                "effect": {
+                  "pa": 5
+                },
+                "type": "Buff"
+              }
+            },
+            {
+              "quantity": 42,
+              "potion_id": 7,
+              "potion": {
+                "name": "Minor Defiance",
+                "id": 7,
+                "effect": {
+                  "ed": 5
+                },
+                "type": "Buff",
+                "level": 1
+              }
+            },
+            {
+              "quantity": 47,
+              "potion_id": 19,
+              "potion": {
+                "name": "Minor Fortify",
+                "id": 19,
+                "effect": {
+                  "pd": 5
+                },
+                "type": "Buff",
+                "level": 1
+              }
+            },
+            {
+              "quantity": 47,
+              "potion_id": 13,
+              "potion": {
+                "id": 13,
+                "effect": {
+                  "ea": 5
+                },
+                "type": "Buff",
+                "level": 1,
+                "name": "Minor Enchant"
+              }
+            },
+            {
+              "quantity": 48,
+              "potion_id": 1,
+              "potion": {
+                "effect": {
+                  "hp": 15
+                },
+                "type": "Heal",
+                "level": 1,
+                "name": "Minor Heal",
+                "id": 1
+              }
+            }
+          ],
+          "buffs": {
+            "pd": 0,
+            "acc": 100,
+            "hp": 0,
+            "spd": 0,
+            "ea": 0,
+            "ed": 0,
+            "pa": 0
+          },
+          "status": [],
+          "cooldowns": {
+            "10022587": {},
+            "10077390": {},
+            "10297114": {},
+            "10306945": {}
+          },
+          "uses": {},
+          "switches": 0,
+          "bombs": [],
+          "miscrits": [
+            {
+              "xp": 0,
+              "id": 10297114,
+              "mId": 506,
+              "name": "Dark Zephyrgeist",
+              "chp": 174,
+              "hp": 212,
+              "status": [],
+              "level": 35,
+              "relics": [
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            {
+              "xp": 0,
+              "id": 10022587,
+              "mId": 433,
+              "name": "Blighted Afterburn",
+              "chp": 185,
+              "hp": 185,
+              "status": [],
+              "level": 35,
+              "relics": [
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            {
+              "xp": 0,
+              "id": 10077390,
+              "mId": 456,
+              "name": "Light Abomino",
+              "chp": 182,
+              "hp": 182,
+              "status": [],
+              "level": 35,
+              "relics": [
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            {
+              "xp": 0,
+              "id": 10306945,
+              "mId": 509,
+              "name": "Foil Fangale",
+              "chp": 170,
+              "hp": 170,
+              "status": [],
+              "level": 35,
+              "relics": [
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          ]
+        },
+        "player2": {
+          "user_id": "Wild",
+          "username": "Wild",
+          "clan": null,
+          "level": -1,
+          "team_order": [
+            0
+          ],
+          "potions": [],
+          "buffs": {
+            "acc": 100,
+            "hp": 0,
+            "spd": 0,
+            "ea": 0,
+            "ed": 0,
+            "pa": 0,
+            "pd": 0
+          },
+          "status": [],
+          "cooldowns": {},
+          "uses": {},
+          "switches": 0,
+          "bombs": [],
+          "miscrits": [
+            {
+              "xp": 0,
+              "id": 0,
+              "mId": 563,
+              "name": "Stalkra",
+              "chp": 115,
+              "hp": 115,
+              "level": 30,
+              "relics": [
+                null,
+                null,
+                null,
+                null
+              ],
+              "status": [],
+              "rating": 9,
+              "attempts": 0
+            }
+          ]
+        },
+        "capture_chance": 40,
+        "next_turn": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755"
+      },
+      "raw_base64": "eyJ0eXBlIjoiV2lsZCIsInB2cCI6ZmFsc2UsInBsYXllcjEiOnsidXNlcl9pZCI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSIsInVzZXJuYW1lIjoidW5sZWF2aXNoIiwiY2xhbiI6bnVsbCwibGV2ZWwiOjMzNiwidGVhbV9vcmRlciI6WzEwMjk3MTE0LDEwMDIyNTg3LDEwMDc3MzkwLDEwMzA2OTQ1XSwicG90aW9ucyI6W3sicG90aW9uX2lkIjozNCwicG90aW9uIjp7ImlkIjozNCwiZWZmZWN0Ijp7fSwidHlwZSI6Ikdsb2JhbEJvc3MiLCJsZXZlbCI6MSwibmFtZSI6IldlYWtlbmluZyBTZXJ1bSJ9LCJxdWFudGl0eSI6MX0seyJwb3Rpb24iOnsiZWZmZWN0Ijp7InBhIjoyMH0sInR5cGUiOiJCdWZmIiwibGV2ZWwiOjMwLCJuYW1lIjoiTXl0aGljYWwgVG91Z2hlbiIsImlkIjozMH0sInF1YW50aXR5IjoyLCJwb3Rpb25faWQiOjMwfSx7InF1YW50aXR5Ijo1LCJwb3Rpb25faWQiOjI5LCJwb3Rpb24iOnsiaWQiOjI5LCJlZmZlY3QiOnsicGEiOjE3fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MjAsIm5hbWUiOiJFcGljIFRvdWdoZW4ifX0seyJxdWFudGl0eSI6NSwicG90aW9uX2lkIjoxMiwicG90aW9uIjp7InR5cGUiOiJCdWZmIiwibGV2ZWwiOjMwLCJuYW1lIjoiTXl0aGljYWwgRGVmaWFuY2UiLCJpZCI6MTIsImVmZmVjdCI6eyJlZCI6MjB9fX0seyJxdWFudGl0eSI6NiwicG90aW9uX2lkIjo2LCJwb3Rpb24iOnsiaWQiOjYsImVmZmVjdCI6eyJocCI6NjB9LCJ0eXBlIjoiSGVhbCIsImxldmVsIjozMCwibmFtZSI6Ik15dGhpY2FsIEhlYWwifX0seyJxdWFudGl0eSI6NiwicG90aW9uX2lkIjoyMywicG90aW9uIjp7ImlkIjoyMywiZWZmZWN0Ijp7InBkIjoxN30sInR5cGUiOiJCdWZmIiwibGV2ZWwiOjIwLCJuYW1lIjoiRXBpYyBGb3J0aWZ5In19LHsicXVhbnRpdHkiOjgsInBvdGlvbl9pZCI6MTEsInBvdGlvbiI6eyJlZmZlY3QiOnsiZWQiOjE3fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MjAsIm5hbWUiOiJFcGljIERlZmlhbmNlIiwiaWQiOjExfX0seyJxdWFudGl0eSI6MTEsInBvdGlvbl9pZCI6NSwicG90aW9uIjp7InR5cGUiOiJIZWFsIiwibGV2ZWwiOjIwLCJuYW1lIjoiRXBpYyBIZWFsIiwiaWQiOjUsImVmZmVjdCI6eyJocCI6NTB9fX0seyJxdWFudGl0eSI6MTQsInBvdGlvbl9pZCI6MTcsInBvdGlvbiI6eyJ0eXBlIjoiQnVmZiIsImxldmVsIjoyMCwibmFtZSI6IkVwaWMgRW5jaGFudCIsImlkIjoxNywiZWZmZWN0Ijp7ImVhIjoxN319fSx7InF1YW50aXR5IjoxNSwicG90aW9uX2lkIjoxNiwicG90aW9uIjp7ImVmZmVjdCI6eyJlYSI6MTR9LCJ0eXBlIjoiQnVmZiIsImxldmVsIjoxNSwibmFtZSI6Ik1hc3NpdmUgRW5jaGFudCIsImlkIjoxNn19LHsicXVhbnRpdHkiOjE1LCJwb3Rpb25faWQiOjIyLCJwb3Rpb24iOnsibmFtZSI6Ik1hc3NpdmUgRm9ydGlmeSIsImlkIjoyMiwiZWZmZWN0Ijp7InBkIjoxNH0sInR5cGUiOiJCdWZmIiwibGV2ZWwiOjE1fX0seyJwb3Rpb25faWQiOjI3LCJwb3Rpb24iOnsiaWQiOjI3LCJlZmZlY3QiOnsicGEiOjExfSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MTAsIm5hbWUiOiJQb3dlcmZ1bCBUb3VnaGVuIn0sInF1YW50aXR5IjoxN30seyJxdWFudGl0eSI6MTgsInBvdGlvbl9pZCI6MjAsInBvdGlvbiI6eyJuYW1lIjoiTWFqb3IgRm9ydGlmeSIsImlkIjoyMCwiZWZmZWN0Ijp7InBkIjo4fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6NX19LHsicXVhbnRpdHkiOjIwLCJwb3Rpb25faWQiOjQsInBvdGlvbiI6eyJuYW1lIjoiTWFzc2l2ZSBIZWFsIiwiaWQiOjQsImVmZmVjdCI6eyJocCI6NDB9LCJ0eXBlIjoiSGVhbCIsImxldmVsIjoxNX19LHsicXVhbnRpdHkiOjIxLCJwb3Rpb25faWQiOjgsInBvdGlvbiI6eyJpZCI6OCwiZWZmZWN0Ijp7ImVkIjo4fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6NSwibmFtZSI6Ik1ham9yIERlZmlhbmNlIn19LHsicXVhbnRpdHkiOjIxLCJwb3Rpb25faWQiOjEwLCJwb3Rpb24iOnsiaWQiOjEwLCJlZmZlY3QiOnsiZWQiOjE0fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MTUsIm5hbWUiOiJNYXNzaXZlIERlZmlhbmNlIn19LHsicXVhbnRpdHkiOjIyLCJwb3Rpb25faWQiOjIsInBvdGlvbiI6eyJpZCI6MiwiZWZmZWN0Ijp7ImhwIjoyMH0sInR5cGUiOiJIZWFsIiwibGV2ZWwiOjUsIm5hbWUiOiJNYWpvciBIZWFsIn19LHsicXVhbnRpdHkiOjIzLCJwb3Rpb25faWQiOjE1LCJwb3Rpb24iOnsiaWQiOjE1LCJlZmZlY3QiOnsiZWEiOjExfSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MTAsIm5hbWUiOiJQb3dlcmZ1bCBFbmNoYW50In19LHsicG90aW9uX2lkIjoxNCwicG90aW9uIjp7ImlkIjoxNCwiZWZmZWN0Ijp7ImVhIjo4fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6NSwibmFtZSI6Ik1ham9yIEVuY2hhbnQifSwicXVhbnRpdHkiOjIzfSx7InBvdGlvbiI6eyJ0eXBlIjoiQnVmZiIsImxldmVsIjoxMCwibmFtZSI6IlBvd2VyZnVsIERlZmlhbmNlIiwiaWQiOjksImVmZmVjdCI6eyJlZCI6MTF9fSwicXVhbnRpdHkiOjIzLCJwb3Rpb25faWQiOjl9LHsicG90aW9uIjp7InR5cGUiOiJIZWFsIiwibGV2ZWwiOjEwLCJuYW1lIjoiUG93ZXJmdWwgSGVhbCIsImlkIjozLCJlZmZlY3QiOnsiaHAiOjMwfX0sInF1YW50aXR5IjoyNCwicG90aW9uX2lkIjozfSx7InF1YW50aXR5IjoyNSwicG90aW9uX2lkIjoyNiwicG90aW9uIjp7ImlkIjoyNiwiZWZmZWN0Ijp7InBhIjo4fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6NSwibmFtZSI6Ik1ham9yIFRvdWdoZW4ifX0seyJwb3Rpb24iOnsiaWQiOjIxLCJlZmZlY3QiOnsicGQiOjExfSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MTAsIm5hbWUiOiJQb3dlcmZ1bCBGb3J0aWZ5In0sInF1YW50aXR5IjoyNiwicG90aW9uX2lkIjoyMX0seyJxdWFudGl0eSI6MjgsInBvdGlvbl9pZCI6MjgsInBvdGlvbiI6eyJsZXZlbCI6MTUsIm5hbWUiOiJNYXNzaXZlIFRvdWdoZW4iLCJpZCI6MjgsImVmZmVjdCI6eyJwYSI6MTR9LCJ0eXBlIjoiQnVmZiJ9fSx7InF1YW50aXR5IjozNCwicG90aW9uX2lkIjoyNSwicG90aW9uIjp7ImxldmVsIjoxLCJuYW1lIjoiTWlub3IgVG91Z2hlbiIsImlkIjoyNSwiZWZmZWN0Ijp7InBhIjo1fSwidHlwZSI6IkJ1ZmYifX0seyJxdWFudGl0eSI6NDIsInBvdGlvbl9pZCI6NywicG90aW9uIjp7Im5hbWUiOiJNaW5vciBEZWZpYW5jZSIsImlkIjo3LCJlZmZlY3QiOnsiZWQiOjV9LCJ0eXBlIjoiQnVmZiIsImxldmVsIjoxfX0seyJxdWFudGl0eSI6NDcsInBvdGlvbl9pZCI6MTksInBvdGlvbiI6eyJuYW1lIjoiTWlub3IgRm9ydGlmeSIsImlkIjoxOSwiZWZmZWN0Ijp7InBkIjo1fSwidHlwZSI6IkJ1ZmYiLCJsZXZlbCI6MX19LHsicXVhbnRpdHkiOjQ3LCJwb3Rpb25faWQiOjEzLCJwb3Rpb24iOnsiaWQiOjEzLCJlZmZlY3QiOnsiZWEiOjV9LCJ0eXBlIjoiQnVmZiIsImxldmVsIjoxLCJuYW1lIjoiTWlub3IgRW5jaGFudCJ9fSx7InF1YW50aXR5Ijo0OCwicG90aW9uX2lkIjoxLCJwb3Rpb24iOnsiZWZmZWN0Ijp7ImhwIjoxNX0sInR5cGUiOiJIZWFsIiwibGV2ZWwiOjEsIm5hbWUiOiJNaW5vciBIZWFsIiwiaWQiOjF9fV0sImJ1ZmZzIjp7InBkIjowLCJhY2MiOjEwMCwiaHAiOjAsInNwZCI6MCwiZWEiOjAsImVkIjowLCJwYSI6MH0sInN0YXR1cyI6W10sImNvb2xkb3ducyI6eyIxMDAyMjU4NyI6e30sIjEwMDc3MzkwIjp7fSwiMTAyOTcxMTQiOnt9LCIxMDMwNjk0NSI6e319LCJ1c2VzIjp7fSwic3dpdGNoZXMiOjAsImJvbWJzIjpbXSwibWlzY3JpdHMiOlt7InhwIjowLCJpZCI6MTAyOTcxMTQsIm1JZCI6NTA2LCJuYW1lIjoiRGFyayBaZXBoeXJnZWlzdCIsImNocCI6MTc0LCJocCI6MjEyLCJzdGF0dXMiOltdLCJsZXZlbCI6MzUsInJlbGljcyI6W251bGwsbnVsbCxudWxsLG51bGxdfSx7InhwIjowLCJpZCI6MTAwMjI1ODcsIm1JZCI6NDMzLCJuYW1lIjoiQmxpZ2h0ZWQgQWZ0ZXJidXJuIiwiY2hwIjoxODUsImhwIjoxODUsInN0YXR1cyI6W10sImxldmVsIjozNSwicmVsaWNzIjpbbnVsbCxudWxsLG51bGwsbnVsbF19LHsieHAiOjAsImlkIjoxMDA3NzM5MCwibUlkIjo0NTYsIm5hbWUiOiJMaWdodCBBYm9taW5vIiwiY2hwIjoxODIsImhwIjoxODIsInN0YXR1cyI6W10sImxldmVsIjozNSwicmVsaWNzIjpbbnVsbCxudWxsLG51bGwsbnVsbF19LHsieHAiOjAsImlkIjoxMDMwNjk0NSwibUlkIjo1MDksIm5hbWUiOiJGb2lsIEZhbmdhbGUiLCJjaHAiOjE3MCwiaHAiOjE3MCwic3RhdHVzIjpbXSwibGV2ZWwiOjM1LCJyZWxpY3MiOltudWxsLG51bGwsbnVsbCxudWxsXX1dfSwicGxheWVyMiI6eyJ1c2VyX2lkIjoiV2lsZCIsInVzZXJuYW1lIjoiV2lsZCIsImNsYW4iOm51bGwsImxldmVsIjotMSwidGVhbV9vcmRlciI6WzBdLCJwb3Rpb25zIjpbXSwiYnVmZnMiOnsiYWNjIjoxMDAsImhwIjowLCJzcGQiOjAsImVhIjowLCJlZCI6MCwicGEiOjAsInBkIjowfSwic3RhdHVzIjpbXSwiY29vbGRvd25zIjp7fSwidXNlcyI6e30sInN3aXRjaGVzIjowLCJib21icyI6W10sIm1pc2NyaXRzIjpbeyJ4cCI6MCwiaWQiOjAsIm1JZCI6NTYzLCJuYW1lIjoiU3RhbGtyYSIsImNocCI6MTE1LCJocCI6MTE1LCJsZXZlbCI6MzAsInJlbGljcyI6W251bGwsbnVsbCxudWxsLG51bGxdLCJzdGF0dXMiOltdLCJyYXRpbmciOjksImF0dGVtcHRzIjowfV19LCJjYXB0dXJlX2NoYW5jZSI6NDAsIm5leHRfdHVybiI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSJ9"
+    },
+    {
+      "time": "18:53:36.140",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:53:40.692",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "🔄 GANTI MISCRIT (SWITCH)",
+      "op_code": 2,
+      "payload": {
+        "id": 681
+      },
+      "raw_base64": "eyJpZCI6NjgxfQ=="
+    },
+    {
+      "time": "18:53:41.018",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "2",
+      "payload": {
+        "id": 681,
+        "actions": [
+          {
+            "type": "Attack",
+            "target": "Wild",
+            "damage": 74,
+            "crit": 1,
+            "hits": 1
+          },
+          {
+            "type": "Attack",
+            "target": "Wild",
+            "damage": 10,
+            "crit": 1,
+            "hits": 1
+          }
+        ],
+        "user_id": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+        "turns": 1,
+        "capture_chance": 100,
+        "next_turn": "Wild"
+      },
+      "raw_base64": "eyJpZCI6NjgxLCJhY3Rpb25zIjpbeyJ0eXBlIjoiQXR0YWNrIiwidGFyZ2V0IjoiV2lsZCIsImRhbWFnZSI6NzQsImNyaXQiOjEsImhpdHMiOjF9LHsidHlwZSI6IkF0dGFjayIsInRhcmdldCI6IldpbGQiLCJkYW1hZ2UiOjEwLCJjcml0IjoxLCJoaXRzIjoxfV0sInVzZXJfaWQiOiIxNmNmZTU1ZS0wMjc2LTRkZDEtOGEwMS05YmQ1YzFiZDQ3NTUiLCJ0dXJucyI6MSwiY2FwdHVyZV9jaGFuY2UiOjEwMCwibmV4dF90dXJuIjoiV2lsZCJ9"
+    },
+    {
+      "time": "18:53:46.607",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:53:47.013",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "2",
+      "payload": {
+        "id": 1087,
+        "actions": [
+          {
+            "type": "Attack",
+            "target": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+            "damage": 4,
+            "crit": 1,
+            "hits": 1
+          }
+        ],
+        "user_id": "Wild",
+        "turns": 0,
+        "capture_chance": 100,
+        "next_turn": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755"
+      },
+      "raw_base64": "eyJpZCI6MTA4NywiYWN0aW9ucyI6W3sidHlwZSI6IkF0dGFjayIsInRhcmdldCI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSIsImRhbWFnZSI6NCwiY3JpdCI6MSwiaGl0cyI6MX1dLCJ1c2VyX2lkIjoiV2lsZCIsInR1cm5zIjowLCJjYXB0dXJlX2NoYW5jZSI6MTAwLCJuZXh0X3R1cm4iOiIxNmNmZTU1ZS0wMjc2LTRkZDEtOGEwMS05YmQ1YzFiZDQ3NTUifQ=="
+    },
+    {
+      "time": "18:53:48.890",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:53:51.044",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "🔄 GANTI MISCRIT (SWITCH)",
+      "op_code": 2,
+      "payload": {
+        "id": 264
+      },
+      "raw_base64": "eyJpZCI6MjY0fQ=="
+    },
+    {
+      "time": "18:53:51.265",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "2",
+      "payload": {
+        "id": 264,
+        "actions": [
+          {
+            "type": "Attack",
+            "target": "Wild",
+            "damage": 13,
+            "crit": 1,
+            "hits": 1
+          }
+        ],
+        "user_id": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+        "turns": 1,
+        "capture_chance": 100,
+        "next_turn": "Wild"
+      },
+      "raw_base64": "eyJpZCI6MjY0LCJhY3Rpb25zIjpbeyJ0eXBlIjoiQXR0YWNrIiwidGFyZ2V0IjoiV2lsZCIsImRhbWFnZSI6MTMsImNyaXQiOjEsImhpdHMiOjF9XSwidXNlcl9pZCI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSIsInR1cm5zIjoxLCJjYXB0dXJlX2NoYW5jZSI6MTAwLCJuZXh0X3R1cm4iOiJXaWxkIn0="
+    },
+    {
+      "time": "18:53:57.102",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:53:57.514",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "2",
+      "payload": {
+        "id": 162,
+        "actions": [
+          {
+            "type": "Attack",
+            "target": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+            "damage": 9,
+            "crit": 1,
+            "hits": 1
+          }
+        ],
+        "user_id": "Wild",
+        "turns": 0,
+        "capture_chance": 100,
+        "next_turn": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755"
+      },
+      "raw_base64": "eyJpZCI6MTYyLCJhY3Rpb25zIjpbeyJ0eXBlIjoiQXR0YWNrIiwidGFyZ2V0IjoiMTZjZmU1NWUtMDI3Ni00ZGQxLThhMDEtOWJkNWMxYmQ0NzU1IiwiZGFtYWdlIjo5LCJjcml0IjoxLCJoaXRzIjoxfV0sInVzZXJfaWQiOiJXaWxkIiwidHVybnMiOjAsImNhcHR1cmVfY2hhbmNlIjoxMDAsIm5leHRfdHVybiI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSJ9"
+    },
+    {
+      "time": "18:54:02.203",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:54:02.794",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_10",
+      "op_code": 10,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:54:03.018",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "10",
+      "payload": {
+        "captured": true,
+        "stars": {
+          "pa": 1,
+          "pd": 1,
+          "hp": 1,
+          "spd": 2,
+          "ea": 2,
+          "ed": 2
+        },
+        "user_id": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+        "actions": [],
+        "turns": 1,
+        "pending": true,
+        "next_turn": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755"
+      },
+      "raw_base64": "eyJjYXB0dXJlZCI6dHJ1ZSwic3RhcnMiOnsicGEiOjEsInBkIjoxLCJocCI6MSwic3BkIjoyLCJlYSI6MiwiZWQiOjJ9LCJ1c2VyX2lkIjoiMTZjZmU1NWUtMDI3Ni00ZGQxLThhMDEtOWJkNWMxYmQ0NzU1IiwiYWN0aW9ucyI6W10sInR1cm5zIjoxLCJwZW5kaW5nIjp0cnVlLCJuZXh0X3R1cm4iOiIxNmNmZTU1ZS0wMjc2LTRkZDEtOGEwMS05YmQ1YzFiZDQ3NTUifQ=="
+    },
+    {
+      "time": "18:54:07.884",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:54:14.286",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_11",
+      "op_code": 11,
+      "payload": {
+        "keep": true,
+        "name": ""
+      },
+      "raw_base64": "eyJrZWVwIjp0cnVlLCJuYW1lIjoiIn0="
+    },
+    {
+      "time": "18:54:14.519",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "11",
+      "payload": {
+        "name": "",
+        "user_id": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+        "actions": [
+          {
+            "type": "Faint",
+            "target": "Wild",
+            "id": -1,
+            "dead": 0,
+            "winner": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755"
+          }
+        ],
+        "turns": 0,
+        "winner": "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755",
+        "next_turn": null
+      },
+      "raw_base64": "eyJuYW1lIjoiIiwidXNlcl9pZCI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSIsImFjdGlvbnMiOlt7InR5cGUiOiJGYWludCIsInRhcmdldCI6IldpbGQiLCJpZCI6LTEsImRlYWQiOjAsIndpbm5lciI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSJ9XSwidHVybnMiOjAsIndpbm5lciI6IjE2Y2ZlNTVlLTAyNzYtNGRkMS04YTAxLTliZDVjMWJkNDc1NSIsIm5leHRfdHVybiI6bnVsbH0="
+    },
+    {
+      "time": "18:54:15.383",
+      "direction": "CLIENT_TO_SERVER",
+      "action_type": "❓ OP_CODE_8",
+      "op_code": 8,
+      "payload": {},
+      "raw_base64": "e30="
+    },
+    {
+      "time": "18:54:15.795",
+      "direction": "SERVER_TO_CLIENT",
+      "action_type": "SERVER_UPDATE",
+      "op_code": "9",
+      "payload": {
+        "success": true,
+        "16cfe55e-0276-4dd1-8a01-9bd5c1bd4755": {
+          "rewards": {
+            "gold": 116,
+            "event": 0
+          },
+          "updates": {},
+          "captured": [
+            {
+              "id": 69771184,
+              "mId": 563,
+              "nick": "",
+              "stars": {
+                "ed": 2,
+                "pa": 1,
+                "pd": 1,
+                "hp": 1,
+                "spd": 2,
+                "ea": 2
+              }
+            }
+          ]
+        }
+      },
+      "raw_base64": "eyJzdWNjZXNzIjp0cnVlLCIxNmNmZTU1ZS0wMjc2LTRkZDEtOGEwMS05YmQ1YzFiZDQ3NTUiOnsicmV3YXJkcyI6eyJnb2xkIjoxMTYsImV2ZW50IjowfSwidXBkYXRlcyI6e30sImNhcHR1cmVkIjpbeyJpZCI6Njk3NzExODQsIm1JZCI6NTYzLCJuaWNrIjoiIiwic3RhcnMiOnsiZWQiOjIsInBhIjoxLCJwZCI6MSwiaHAiOjEsInNwZCI6MiwiZWEiOjJ9fV19fQ=="
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+"""
+╔══════════════════════════════════════════════════════════════════════╗
+║  🎮 BotMisc — Configuration Module                                   ║
+╚══════════════════════════════════════════════════════════════════════╝
+"""
+
+import os
+
+# Project Root Directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+SPOTS_FILE = os.path.join(DATA_DIR, "spots.json")
+MISCRITS_FILE = os.path.join(DATA_DIR, "miscrits.json")
+ACCOUNT_FILE = os.path.join(DATA_DIR, "account.json")
+
+# ================= NAKAMA SERVER CONFIG =================
+HOST = "63.183.56.199:7350"
+AUTH_BASE_URL = "https://worldofmiscrits.com/v2/account/authenticate/email"
+SERVER_BASIC_AUTH = "Basic YTFjNzM3Y2MxODhmNTRhYjM2NThiYTVkYTBlMTJlZTU6"
+
+DEFAULT_HEADERS = {
+    "Accept": "application/json",
+    "Authorization": SERVER_BASIC_AUTH,
+    "User-Agent": "GodotEngine/4.6.stable.custom_build (Windows)",
+    "Content-Type": "application/json"
+}
+
+# ================= RATING & CAPTURE SETTINGS =================
+# Minimum rating required to capture (0 = F-, 9 = A, 10 = A+, 11 = S, 12 = S+)
+MIN_TARGET_RATING = 10
+
+# Rating score to name mapping
+RATING_MAP = {
+    0: "F-", 1: "F", 2: "F+", 3: "D", 4: "D+",
+    5: "C", 6: "C+", 7: "B", 8: "B+", 9: "A",
+    10: "A+", 11: "S", 12: "S+"
+}
+
+# Target HP percentage to weaken enemy down to before throwing capture crate (5% - 20%)
+TARGET_CAPTURE_HP_PCT = 15.0
+
+# Minimum safe HP percentage (never attack if below this to avoid killing the target)
+MIN_SAFE_HP_PCT = 10.0
+
+# Keep or release caught miscrits (True = Keep, False = Release)
+AUTO_KEEP_CAUGHT = True
+
+# ================= HUNTING TIMINGS & DELAYS =================
+# Delay between attacks on different objects in rotation (seconds)
+STEP_DELAY = 1.0
+
+# Delay between battle turns / animations (seconds)
+TURN_DELAY = 0.5
+
+# Delay after sending flee before sending match_leave
+FLEE_DELAY = 0.2
+
+# Delay after match_leave before next action
+LEAVE_DELAY = 0.8
+
+# Per-object search cooldown on same object (seconds)
+OBJECT_COOLDOWN = 15.0
+
+# Token refresh safety buffer (seconds before expiry to auto-refresh)
+TOKEN_REFRESH_BUFFER = 300  # 5 minutes
+
+# ================= NOTIFICATIONS =================
+# Optional webhook for Discord/Telegram notifications on Bingo
+WEBHOOK_URL = ""
+TELEGRAM_BOT_TOKEN = ""
+TELEGRAM_CHAT_ID = ""

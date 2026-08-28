@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+
+# Sensitive Credentials
+data/account.json
+*.token
+
+# Logs & Dumps
+*.log
+mitm_sniffer/*log*.json
+mitm_sniffer/captured_battles/

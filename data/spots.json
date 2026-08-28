@@ -1,0 +1,62 @@
+[
+  {
+    "id": "forest_z2_blighted_cubsprout",
+    "region": "Forest",
+    "zone": "Zone 2",
+    "object_id": 63,
+    "target_name": "Blighted Cubsprout",
+    "target_id": 430,
+    "target_rarity": "Exotic",
+    "enabled": true
+  },
+  {
+    "id": "forest_z3_mama",
+    "region": "Forest",
+    "zone": "Zone 3",
+    "object_id": 96,
+    "target_name": "Mama",
+    "target_id": 93,
+    "target_rarity": "Exotic",
+    "enabled": true
+  },
+  {
+    "id": "forest_z3_defilio",
+    "region": "Forest",
+    "zone": "Zone 3",
+    "object_id": 98,
+    "target_name": "Defilio",
+    "target_id": 425,
+    "target_rarity": "Exotic",
+    "enabled": true
+  },
+  {
+    "id": "forest_z4_dark_nessy",
+    "region": "Forest",
+    "zone": "Zone 4",
+    "object_id": 96,
+    "target_name": "Dark Nessy",
+    "target_id": 94,
+    "target_rarity": "Exotic",
+    "enabled": true
+  },
+  {
+    "id": "forest_z4_blighted_flowerpiller",
+    "region": "Forest",
+    "zone": "Zone 4",
+    "object_id": 98,
+    "target_name": "Blighted Flowerpiller",
+    "target_id": 546,
+    "target_rarity": "Legendary",
+    "enabled": true
+  },
+  {
+    "id": "forest_z4_blighted_flue",
+    "region": "Forest",
+    "zone": "Zone 4",
+    "object_id": 99,
+    "target_name": "Blighted Flue",
+    "target_id": 433,
+    "target_rarity": "Legendary",
+    "enabled": true
+  }
+]
