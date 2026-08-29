@@ -121,8 +121,20 @@ class AutoHunter:
                     enemy_info = self.db.get_miscrit(enemy_mid)
                     enemy_rar = enemy_info.get("rarity", "Common") if enemy_info else "Common"
                     actual_name = enemy_info.get("name", enemy_name) if enemy_info else enemy_name
-                    
+
+                    server_rating = enemy_miscrit.get("rating", 0)
+                    tier_name, tier_score = get_tier_info(server_rating)
                     capture_chance = initial_battle_data.get("capture_chance", 1)
+
+                    rc = RARITY_COLORS.get(enemy_rar, Colors.WHITE)
+                    ts = time.strftime("%H:%M:%S")
+
+                    # ── CHECK 1: MUST BE EXOTIC OR LEGENDARY TARGET ──
+                    is_target_species = (
+                        enemy_rar in ("Exotic", "Legendary")
+                        or enemy_mid == target_id
+                        or target_name.lower() in actual_name.lower()
+                    )
 
                     # ── TARGET QUALIFICATION ──
                     # 1. Legendary: Tangkap SEMUA tier (C+ s/d S+, tidak ada F-)
