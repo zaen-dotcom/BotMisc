@@ -1,12 +1,15 @@
 """
 ╔══════════════════════════════════════════════════════════════════════╗
-║  ⚔️  BotMisc — Smart Combat & Auto-Capture Engine v3.0               ║
+║  ⚔️  BotMisc — Smart Combat & Auto-Capture Engine v5.0               ║
+║  Fixes:                                                              ║
+║  - Multi-hit skills (2x, 5x hits) correctly summed as TOTAL damage   ║
+║  - damage_per_ap calibrated from SUM of ALL hits per turn            ║
+║  - Uses max(old, new) ratio for worst-case safety                    ║
 ║  Features:                                                           ║
-║  - Legendary: Catch ALL Tiers (Lowest is C+, Never Flee)             ║
+║  - Legendary: Catch ALL Tiers                                        ║
 ║  - Exotic: Catch A+ to S+ (Score >= 10, or Capture Chance <= 1%)     ║
-║  - Turn 1 Safe Probe: ALWAYS start with lowest AP skill (Anti-KO)    ║
-║  - Dynamic Damage Calibration: Accurately predicts subsequent hits    ║
-║  - Strict Overkill Shield: Stops attacking when enemy HP is fragile   ║
+║  - Turn 1 Safe Probe: ALWAYS start with lowest AP skill              ║
+║  - Strict Overkill Shield with multi-hit awareness                   ║
 ║  - Infinite Capture Loop & Auto-Keep                                 ║
 ╚══════════════════════════════════════════════════════════════════════╝
 """
@@ -30,13 +33,9 @@ class CombatEngine:
 
     def handle_encounter(self, match_id: str, initial_battle_data: dict, spot_info: dict) -> Tuple[str, Optional[dict]]:
         """
-        Manages the complete battle and capture lifecycle:
-        1. Validates targeting rules:
-           - Legendary: Catch ALL tiers!
-           - Exotic: Catch A+ to S+ (Score >= 10, or Initial Chance <= 1%)
-        2. Safe Weakening (Turn 1 uses WEAKEST skill to safely calibrate damage without 1-shotting)
-        3. Strict Anti-KO Protection: Ceases attack if next hit could KO
-        4. Capture Crate loop until caught -> Keep to inventory
+        Manages the complete battle and capture lifecycle.
+        v5.0: Multi-hit skills (2x, 5x) are summed correctly.
+        damage_per_ap is calibrated from TOTAL damage per turn.
         """
         player1 = initial_battle_data.get("player1", {})
         player2 = initial_battle_data.get("player2", {})
@@ -59,17 +58,13 @@ class CombatEngine:
         my_level = my_miscrit.get("level", 35)
 
         # ── 1. TARGET QUALIFICATION CHECK ──
-        # Legendary: Always Catch (C+ to S+)
         is_legendary = (enemy_rar == "Legendary")
         
-        # Exotic: Catch A+ to S+ (Score >= 10, OR initial chance <= 1% for unmasked accounts)
         is_exotic_target = False
         if enemy_rar == "Exotic":
             if server_rating > 0:
                 is_exotic_target = (tier_score >= MIN_TARGET_SCORE)
             else:
-                # For accounts < level 150 where server sends rating: 0
-                # From capture chance table at 100% HP: A, A+, S, S+ = 1%
                 is_exotic_target = (capture_chance <= 1)
 
         should_catch = is_legendary or is_exotic_target
@@ -90,53 +85,45 @@ class CombatEngine:
         print(f"  HP Awal : {enemy_chp}/{enemy_hp} | Peluang Tangkap Awal: {capture_chance}%")
         print(f"{Colors.CYAN}──────────────────────────────────────────────────{Colors.RESET}")
 
-        # Get player's attacking skills sorted from LOWEST AP to HIGHEST AP (safest first!)
+        # Get player's attacking skills sorted from LOWEST AP to HIGHEST AP
         skills_asc = self._get_player_skills_asc(my_mid)
         
-        # Turn loop variables
+        # ── DAMAGE TRACKING VARIABLES ──
         turn = 1
-        damage_per_ap: Optional[float] = None  # calibrated from Turn 1 hit
+        damage_per_ap: Optional[float] = None   # Calibrated from TOTAL damage (all hits summed) / AP
         captured_data = None
+        last_used_ap: int = 7                    # AP of last skill used (for calibration)
 
         while True:
-            # Calculate current HP percentage
             hp_pct = (enemy_chp / enemy_hp) * 100 if enemy_hp > 0 else 100
 
             # ── 3. DECISION: ATTACK vs THROW CAPTURE CRATE ──
-            # Determine if enemy is already weakened or in lethal danger
             lowest_skill = skills_asc[0] if skills_asc else {"id": 264, "name": "Light Tap", "ap": 7}
             lowest_ap = lowest_skill.get("ap", 7)
             
-            # Estimated damage of our weakest attack (with 30% safety buffer for variance/crits)
-            est_lowest_dmg = int(lowest_ap * (damage_per_ap if damage_per_ap else 3.5) * 1.3)
+            # Estimated TOTAL damage from weakest skill (includes all multi-hits)
+            est_total_lowest = int(lowest_ap * (damage_per_ap if damage_per_ap else 3.5) * 1.3)
 
-            # STOP ATTACKING IF:
-            # - HP is already in sweet spot (<= 20%)
-            # - OR capture chance is high (>= 85%)
-            # - OR our WEAKEST skill has ANY chance of KO'ing the enemy!
+            safe_floor_hp = int(enemy_hp * (MIN_SAFE_HP_PCT / 100.0))
+
             is_in_capture_zone = (hp_pct <= TARGET_CAPTURE_HP_PCT or capture_chance >= 85)
-            is_fragile_or_lethal = (enemy_chp <= est_lowest_dmg or enemy_chp <= int(enemy_hp * (MIN_SAFE_HP_PCT / 100.0)))
+            is_fragile_or_lethal = (enemy_chp <= est_total_lowest or enemy_chp <= safe_floor_hp)
 
             if is_in_capture_zone or is_fragile_or_lethal:
-                reason = "ZONA TANGKAP TERCAPAI (5-20%)" if is_in_capture_zone else "ANTI-KO ACTIVATED (Musuh terlalu tipis, stop attack!)"
+                reason = "ZONA TANGKAP (5-20%)" if is_in_capture_zone else f"ANTI-KO (Skill teringan ~{est_total_lowest} dmg vs {enemy_chp} HP)"
                 print(f"  {Colors.MAGENTA}[T{turn}] HP Musuh: {enemy_chp}/{enemy_hp} ({hp_pct:.1f}%) | Chance: {capture_chance}% | {reason}")
                 print(f"       → 📦 MELEMPAR CRATE CAPTURE!{Colors.RESET}")
                 
-                # Send OpCode 10 (Throw Crate)
                 self.client.send_capture(match_id)
                 time.sleep(TURN_DELAY)
-                
-                # Send OpCode 8 (Animation Sync)
                 self.client.send_sync_animation(match_id)
 
-                # Receive result
                 resp = self.client.recv_battle_message()
                 if not resp:
                     time.sleep(0.8)
                     continue
 
                 if resp.get("captured") is True:
-                    # 🌟 CAPTURED SUCCESSFULLY! 🌟
                     stars = resp.get("stars", {})
                     print(f"\n{Colors.BG_GREEN}{Colors.WHITE}{Colors.BOLD} 🎉 BERHASIL DITANGKAP! [{enemy_name} - Tier: {tier_name}] 🎉 {Colors.RESET}")
                     print(f"  Stars (IVs): {json.dumps(stars)}")
@@ -148,10 +135,7 @@ class CombatEngine:
                         self.client.send_sync_animation(match_id)
                         time.sleep(0.5)
 
-                    # Sound alarm / notification
                     Notifier.sound_alarm(times=10)
-                    
-                    # Clean leave
                     self.client.send_match_leave(match_id)
                     
                     captured_data = {
@@ -167,56 +151,79 @@ class CombatEngine:
 
             else:
                 # ── SELECT SAFE WEAKENING SKILL ──
-                # On Turn 1: ALWAYS start with the WEAKEST skill (lowest AP) to safely calibrate damage
-                # Never use ultimate/heavy skills on Turn 1!
                 if turn == 1 or damage_per_ap is None:
-                    chosen_skill = skills_asc[0]  # Lowest AP skill (e.g. AP 7 Breeze/Swipe)
+                    # Turn 1: ALWAYS use WEAKEST skill to safely calibrate total damage
+                    chosen_skill = skills_asc[0]
                 else:
-                    chosen_skill = self._select_safe_skill(skills_asc, enemy_chp, enemy_hp, damage_per_ap)
+                    chosen_skill = self._select_safe_skill(
+                        skills_asc, enemy_chp, enemy_hp, damage_per_ap
+                    )
 
                 s_id = chosen_skill.get("id", 264)
                 s_name = chosen_skill.get("name", "Light Attack")
                 s_ap = chosen_skill.get("ap", 7)
-                est_dmg = int(s_ap * (damage_per_ap if damage_per_ap else 3.0))
+                last_used_ap = s_ap
 
-                print(f"  {Colors.CYAN}[T{turn}] HP Musuh: {enemy_chp}/{enemy_hp} ({hp_pct:.1f}%) → ⚡ Safe Skill: {s_name} (AP: {s_ap}, Est Dmg: ~{est_dmg}){Colors.RESET}")
+                est_total = int(s_ap * (damage_per_ap if damage_per_ap else 2.0))
+
+                print(
+                    f"  {Colors.CYAN}[T{turn}] HP Musuh: {enemy_chp}/{enemy_hp} ({hp_pct:.1f}%) "
+                    f"→ ⚡ Skill: {s_name} (AP: {s_ap}, Est Total Dmg: ~{est_total}){Colors.RESET}"
+                )
                 
-                # Send OpCode 2 (Cast Ability)
                 self.client.cast_ability(match_id, s_id)
                 time.sleep(TURN_DELAY)
-
-                # Send OpCode 8 (Animation Sync)
                 self.client.send_sync_animation(match_id)
 
-            # Wait for Server Turn Response
+            # ── RECEIVE SERVER TURN RESPONSE & PARSE ALL HITS ──
             server_turn = self.client.recv_battle_message()
             if not server_turn:
                 time.sleep(0.8)
                 continue
 
-            # Update enemy HP & calibrate damage ratio dynamically
             if "actions" in server_turn:
+                # SUM all damage hits targeting "Wild" in this turn
+                total_dmg_this_turn = 0
+                hit_count = 0
+                fainted = False
+
                 for act in server_turn.get("actions", []):
                     atype = act.get("type", "")
+                    
+                    if atype == "Faint" and act.get("target") == "Wild":
+                        fainted = True
+
                     if atype == "Attack" and act.get("target") == "Wild":
                         actual_dmg = act.get("damage", 0)
                         enemy_chp = max(0, enemy_chp - actual_dmg)
-                        
-                        # Calibrate real damage per AP ratio dynamically
-                        if s_ap > 0 and actual_dmg > 0:
-                            damage_per_ap = actual_dmg / s_ap
-                        
-                        print(f"    💥 Damage Masuk: -{actual_dmg} HP (Sisa HP Musuh: {enemy_chp}/{enemy_hp})")
-                    
-                    elif atype == "Faint" and act.get("target") == "Wild":
-                        print(f"\n{Colors.RED}{Colors.BOLD}💀 Musuh KO / Fainted! Tidak dapat ditangkap.{Colors.RESET}")
-                        self.client.send_match_leave(match_id)
-                        return "FAINTED", None
+                        total_dmg_this_turn += actual_dmg
+                        hit_count += 1
+
+                        hit_label = f"Hit {hit_count}" if hit_count > 1 else "Damage"
+                        print(f"    💥 {hit_label}: -{actual_dmg} HP (Sisa HP Musuh: {enemy_chp}/{enemy_hp})")
+
+                # Print multi-hit summary if more than 1 hit
+                if hit_count > 1:
+                    print(f"    📊 Total Damage Turn ini ({hit_count} hits): -{total_dmg_this_turn} HP")
+
+                if fainted:
+                    print(f"\n{Colors.RED}{Colors.BOLD}💀 Musuh KO / Fainted! Tidak dapat ditangkap.{Colors.RESET}")
+                    self.client.send_match_leave(match_id)
+                    return "FAINTED", None
+
+                # ── CALIBRATE damage_per_ap FROM TOTAL DAMAGE (ALL HITS SUMMED) ──
+                if total_dmg_this_turn > 0 and last_used_ap > 0:
+                    new_ratio = total_dmg_this_turn / last_used_ap
+                    if damage_per_ap is None:
+                        damage_per_ap = new_ratio
+                    else:
+                        # Always keep the HIGHEST observed ratio (worst-case for safety)
+                        damage_per_ap = max(damage_per_ap, new_ratio)
 
             if "capture_chance" in server_turn:
                 capture_chance = server_turn.get("capture_chance", capture_chance)
 
-            # If it's wild's turn, receive enemy attack and sync animation
+            # If it's wild's turn, receive enemy attack and sync
             if server_turn.get("next_turn") == "Wild":
                 self.client.recv_battle_message()
                 self.client.send_sync_animation(match_id)
@@ -230,7 +237,6 @@ class CombatEngine:
     def _get_player_skills_asc(self, my_mid: int) -> List[dict]:
         """
         Loads all attacking skills from database and sorts from LOWEST AP to HIGHEST AP.
-        Prioritizes light/safe attacks to strictly prevent accidental KOs.
         """
         m_info = self.db.get_miscrit(my_mid)
         abilities = m_info.get("abilities", []) if m_info else []
@@ -245,39 +251,44 @@ class CombatEngine:
                 })
 
         if not valid_attacks:
-            # Safe fallbacks from lowest to highest
             valid_attacks = [
                 {"id": 264, "name": "Breeze / Swipe", "ap": 7},
                 {"id": 680, "name": "Medium Strike", "ap": 13},
                 {"id": 272, "name": "Dive", "ap": 15}
             ]
 
-        # Sort ascending by AP (Lowest damage to highest damage)
         valid_attacks.sort(key=lambda x: x.get("ap", 0))
         return valid_attacks
 
-    def _select_safe_skill(self, skills_asc: List[dict], enemy_chp: int, enemy_hp: int, dmg_per_ap: float) -> dict:
+    def _select_safe_skill(
+        self, skills_asc: List[dict], enemy_chp: int, enemy_hp: int,
+        dmg_per_ap: float
+    ) -> dict:
         """
-        Chooses the most effective skill that strictly guarantees the enemy
-        survives with at least 10% HP, factoring in a 25% safety buffer.
+        Chooses the strongest skill that STRICTLY guarantees the enemy survives.
+        
+        damage_per_ap already includes multi-hit damage (total of all hits / AP).
+        Uses 30% safety buffer for crit/high-roll variance.
+        Enemy must survive with at least MIN_SAFE_HP_PCT (10%) HP after the hit.
         """
-        safe_floor_hp = int(enemy_hp * (MIN_SAFE_HP_PCT / 100.0))  # at least 10% HP surviving
-        target_hp = int(enemy_hp * (TARGET_CAPTURE_HP_PCT / 100.0)) # target ~15% HP
+        safe_floor_hp = int(enemy_hp * (MIN_SAFE_HP_PCT / 100.0))
+        target_hp = int(enemy_hp * (TARGET_CAPTURE_HP_PCT / 100.0))
 
         candidate_skills = []
         for s in skills_asc:
             ap = s.get("ap", 7)
-            # High roll buffer (25% higher than average damage)
-            max_possible_dmg = int(ap * dmg_per_ap * 1.25)
-            remaining_hp = enemy_chp - max_possible_dmg
+            # Total estimated damage (all hits) with 30% safety buffer
+            max_total_dmg = int(ap * dmg_per_ap * 1.3)
+            remaining_hp = enemy_chp - max_total_dmg
             
             if remaining_hp >= safe_floor_hp:
                 candidate_skills.append((remaining_hp, s))
 
         if candidate_skills:
-            # Pick the skill that brings remaining HP closest to target_hp (15%)
+            # Pick the skill that brings remaining HP closest to target zone (15%)
             candidate_skills.sort(key=lambda x: abs(x[0] - target_hp))
             return candidate_skills[0][1]
 
-        # If even the weakest skill might drop HP below floor, return the lowest AP skill
+        # ALL skills are potentially lethal → return weakest
+        # The combat loop's fragile HP check will switch to capture mode
         return skills_asc[0]
