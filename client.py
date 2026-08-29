@@ -16,14 +16,16 @@ from notifier import Notifier
 
 class NakamaClient:
     def __init__(self, token_mgr: TokenManager):
-        self.token_mgr = token_mgr
+        self.token_manager = token_mgr
         self.ws: Optional[websocket.WebSocket] = None
-        self.cid_counter = 1
         self.is_connected = False
+        self.cid_counter = 1
+        self.current_location_id: Optional[int] = None
+        self.current_area_id: Optional[int] = None
 
     def connect(self) -> bool:
         self.disconnect()
-        token = self.token_mgr.get_token()
+        token = self.token_manager.get_token()
         if not token:
             Notifier.error("Gagal mendapatkan token untuk koneksi WebSocket.")
             return False
@@ -34,6 +36,8 @@ class NakamaClient:
             self.ws.connect(ws_url, timeout=10)
             self.is_connected = True
             self.cid_counter = 1
+            self.current_location_id = None
+            self.current_area_id = None
             
             # Initial handshake
             self._send({"cid": str(self._next_cid()), "rpc": {"id": "join_global"}})
@@ -52,6 +56,30 @@ class NakamaClient:
                 pass
         self.ws = None
         self.is_connected = False
+        self.current_location_id = None
+        self.current_area_id = None
+
+    def update_location(self, location_id: int, area_id: int) -> bool:
+        """
+        Teleports player to specified location and area via RPC 'update_location'.
+        Prevents redundant packet spam if already in the target area.
+        """
+        if self.current_location_id == location_id and self.current_area_id == area_id:
+            return True
+
+        req = {
+            "cid": str(self._next_cid()),
+            "rpc": {
+                "id": "update_location",
+                "payload": json.dumps({"areaId": area_id, "locationId": location_id})
+            }
+        }
+        success = self._send(req)
+        if success:
+            self.current_location_id = location_id
+            self.current_area_id = area_id
+            time.sleep(0.4)
+        return success
 
     def _next_cid(self) -> int:
         c = self.cid_counter

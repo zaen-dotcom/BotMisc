@@ -16,7 +16,7 @@ import json
 from typing import Dict, List, Optional, Tuple, Any
 
 from config import (
-    MIN_TARGET_RATING, RATING_MAP, TARGET_CAPTURE_HP_PCT,
+    MIN_TARGET_SCORE, get_tier_info, TARGET_CAPTURE_HP_PCT,
     MIN_SAFE_HP_PCT, AUTO_KEEP_CAUGHT, TURN_DELAY, FLEE_DELAY
 )
 from notifier import Notifier, Colors, RARITY_COLORS
@@ -30,9 +30,9 @@ class CombatEngine:
     def handle_encounter(self, match_id: str, initial_battle_data: dict, spot_info: dict) -> Tuple[str, Optional[dict]]:
         """
         Manages the complete lifecycle of a wild encounter:
-        1. Reads exact rating (0 to 12 -> 13 Rating levels total)
-        2. If Rating < MIN_TARGET_RATING (e.g. < 10 / A+): Flees immediately (0.1s)
-        3. If Rating >= 10 (A+, S, S+):
+        1. Reads exact rating (6 to 18 stars -> Score 0 to 12 -> 13 Tiers F- to S+)
+        2. If Score < MIN_TARGET_SCORE (e.g. < 10 / A+): Flees immediately (0.1s)
+        3. If Score >= 10 (A+, S, S+):
            - Tracks enemy current HP vs max HP in real-time
            - Adaptively chooses the safest skill (Heavy -> Med -> Light)
            - Stops attacking when enemy HP is 5% - 20% (or if next attack might KO)
@@ -47,8 +47,8 @@ class CombatEngine:
         enemy_name = enemy_miscrit.get("name", "Unknown")
         enemy_hp = enemy_miscrit.get("hp", 100)
         enemy_chp = enemy_miscrit.get("chp", enemy_hp)
-        rating_score = enemy_miscrit.get("rating", 0)
-        rating_name = RATING_MAP.get(rating_score, f"R{rating_score}")
+        server_rating = enemy_miscrit.get("rating", 0)
+        tier_name, tier_score = get_tier_info(server_rating)
         capture_chance = initial_battle_data.get("capture_chance", 40)
 
         my_miscrit = player1.get("miscrits", [{}])[0]
@@ -56,11 +56,11 @@ class CombatEngine:
         my_mid = my_miscrit.get("mId", 0)
         my_level = my_miscrit.get("level", 35)
 
-        # ── 1. RATING & TIER FILTER (13 TIERS TOTAL: 0 to 12) ──
-        if rating_score < MIN_TARGET_RATING:
+        # ── 1. TIER FILTER (Target: A+, S, S+ -> Score >= 10) ──
+        if tier_score < MIN_TARGET_SCORE:
             print(
-                f"{Colors.DIM}  [-] Rating: {Colors.YELLOW}{rating_name}{Colors.DIM} "
-                f"({rating_score}/12) < Target (A+ s/d S+) → Auto Flee.{Colors.RESET}"
+                f"{Colors.DIM}  [-] Tier: {Colors.YELLOW}{tier_name}{Colors.DIM} "
+                f"(Score: {tier_score}/12 | Stars: {server_rating}) < Target (A+ s/d S+) → Auto Flee.{Colors.RESET}"
             )
             self.client.flee_and_leave(match_id)
             return "FLEE_RATING", None
@@ -68,7 +68,7 @@ class CombatEngine:
         # ── 2. HIGH TIER TARGET DETECTED (A+, S, S+) ──
         print(f"\n{Colors.BG_GREEN}{Colors.WHITE}{Colors.BOLD} 🌟 TARGET SUPER TIER DITEMUKAN! 🌟 {Colors.RESET}")
         print(f"  Target  : {Colors.GREEN}{Colors.BOLD}{enemy_name} (#{enemy_mid}){Colors.RESET}")
-        print(f"  Tier    : {Colors.YELLOW}{Colors.BOLD}{rating_name} (Score: {rating_score}/12 - Total 13 Ratings){Colors.RESET}")
+        print(f"  Tier    : {Colors.YELLOW}{Colors.BOLD}{tier_name} (Score: {tier_score}/12 | Total Stars: {server_rating}){Colors.RESET}")
         print(f"  HP Awal : {enemy_chp}/{enemy_hp} | Peluang Tangkap Awal: {capture_chance}%")
         print(f"{Colors.CYAN}──────────────────────────────────────────────────{Colors.RESET}")
 

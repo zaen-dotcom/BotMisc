@@ -1,0 +1,90 @@
+[
+  {
+    "timestamp": "11:54:01.154",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 1,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:54:10.121",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 2,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:54:17.836",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 3,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:54:22.725",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 4,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:55:55.706",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 1,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:56:05.652",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 2,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:56:13.274",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 3,
+        "locationId": 2
+      }
+    }
+  },
+  {
+    "timestamp": "11:56:17.616",
+    "type": "MAP_OR_RPC",
+    "data": {
+      "rpc_id": "update_location",
+      "payload": {
+        "areaId": 4,
+        "locationId": 2
+      }
+    }
+  }
+]

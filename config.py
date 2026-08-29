@@ -25,16 +25,45 @@ DEFAULT_HEADERS = {
     "Content-Type": "application/json"
 }
 
-# ================= RATING & CAPTURE SETTINGS =================
-# Minimum rating required to capture (0 = F-, 9 = A, 10 = A+, 11 = S, 12 = S+)
-MIN_TARGET_RATING = 10
-
-# Rating score to name mapping
-RATING_MAP = {
-    0: "F-", 1: "F", 2: "F+", 3: "D", 4: "D+",
-    5: "C", 6: "C+", 7: "B", 8: "B+", 9: "A",
-    10: "A+", 11: "S", 12: "S+"
+# ================= RATING & TIER SETTINGS =================
+# Server 'rating' field is Total Stars (6 to 18 stars)
+# Score = Total Stars - 6 (Score 0 to 12, exactly 13 tiers, S+ is highest!)
+STAR_TO_TIER = {
+    6:  ("F-", 0),
+    7:  ("F",  1),
+    8:  ("F+", 2),
+    9:  ("D",  3),
+    10: ("D+", 4),
+    11: ("C",  5),
+    12: ("C+", 6),
+    13: ("B",  7),
+    14: ("B+", 8),
+    15: ("A",  9),
+    16: ("A+", 10),
+    17: ("S",  11),
+    18: ("S+", 12),
 }
+
+# Minimum score to capture (10 = A+, 11 = S, 12 = S+) -> Star count >= 16
+MIN_TARGET_SCORE = 10
+MIN_TARGET_STARS = 16
+
+def get_tier_info(server_rating: int):
+    """
+    Converts server rating (total stars 6-18) to exact Tier name and Score (0-12).
+    S+ (Score 12 / 18 stars) is the absolute highest tier!
+    """
+    if server_rating in STAR_TO_TIER:
+        return STAR_TO_TIER[server_rating]
+    if server_rating <= 6:
+        return ("F-", 0)
+    if server_rating >= 18:
+        return ("S+", 12)
+    # Fallback formula: score = rating - 6
+    score = max(0, min(12, server_rating - 6))
+    tier_names = ["F-", "F", "F+", "D", "D+", "C", "C+", "B", "B+", "A", "A+", "S", "S+"]
+    return (tier_names[score], score)
+
 
 # Target HP percentage to weaken enemy down to before throwing capture crate (5% - 20%)
 TARGET_CAPTURE_HP_PCT = 15.0

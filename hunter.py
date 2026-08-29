@@ -12,7 +12,7 @@ import os
 from typing import Dict, List, Any, Optional
 
 from config import (
-    STEP_DELAY, RATING_MAP, MIN_TARGET_RATING,
+    STEP_DELAY, MIN_TARGET_SCORE, get_tier_info,
     WEBHOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 )
 from database import Database
@@ -58,7 +58,7 @@ class AutoHunter:
         Notifier.print_banner(len(enabled_spots))
         print(f"{Colors.GREEN}{Colors.BOLD}🚀 Memulai Multi-Spot Rotation Hunting di [{region.upper()}] (24/7 Continuous Loop)...{Colors.RESET}")
         print(f"  • Target Hewan: {Colors.YELLOW}{Colors.BOLD}HANYA Exotic & Legendary{Colors.RESET} (Common/Rare/Epic langsung Flee)")
-        print(f"  • Target Tier : {Colors.GREEN}{Colors.BOLD}A+ (10), S (11), S+ (12){Colors.RESET} (Tier di bawah A+ langsung Flee)")
+        print(f"  • Target Tier : {Colors.GREEN}{Colors.BOLD}A+, S, S+{Colors.RESET} (Score 10-12 / 16-18 Stars)")
         print(f"  • Mode Tangkap: {Colors.CYAN}{Colors.BOLD}Auto-Weaken (5-15% HP) ➔ Auto-Capture ➔ Auto-Keep{Colors.RESET}")
         print(f"{Colors.YELLOW}Tekan Ctrl+C kapan saja untuk berhenti.{Colors.RESET}\n")
 
@@ -86,6 +86,11 @@ class AutoHunter:
                 reg = current_spot.get("region", "Forest")
                 zone = current_spot.get("zone", "Zone 4")
                 spot_label = f"{reg} {zone} (Obj #{obj_id})"
+
+                # ── Auto-Teleport to Spot Location/Area if needed ──
+                loc_id = current_spot.get("location_id", 2)
+                area_id = current_spot.get("area_id", 4)
+                self.client.update_location(location_id=loc_id, area_id=area_id)
 
                 # ── Probing Object on Server ──
                 status, enemy_mid, enemy_name, match_id, initial_battle_data, cd = self.client.probe_object(obj_id)
@@ -116,8 +121,9 @@ class AutoHunter:
                     enemy_info = self.db.get_miscrit(enemy_mid)
                     enemy_rar = enemy_info.get("rarity", "Common") if enemy_info else "Common"
                     actual_name = enemy_info.get("name", enemy_name) if enemy_info else enemy_name
-                    rating_score = enemy_miscrit.get("rating", 0)
-                    rating_name = RATING_MAP.get(rating_score, f"R{rating_score}")
+                    
+                    server_rating = enemy_miscrit.get("rating", 0)
+                    tier_name, tier_score = get_tier_info(server_rating)
 
                     rc = RARITY_COLORS.get(enemy_rar, Colors.WHITE)
                     ts = time.strftime("%H:%M:%S")
@@ -130,17 +136,17 @@ class AutoHunter:
                     )
 
                     # Print encounter line
-                    tier_color = Colors.GREEN if (rating_score >= MIN_TARGET_RATING and is_target_species) else Colors.DIM
+                    tier_color = Colors.GREEN if (tier_score >= MIN_TARGET_SCORE and is_target_species) else Colors.DIM
                     print(
                         f"{Colors.DIM}[{ts}]{Colors.RESET} "
                         f"{Colors.CYAN}#{self.total_encounters:<4d}{Colors.RESET} "
                         f"[{spot_label:<20s}] → "
                         f"{rc}{actual_name} (#{enemy_mid}) [{enemy_rar}]{Colors.RESET} | "
-                        f"Tier: {tier_color}{rating_name} ({rating_score}/12){Colors.RESET}"
+                        f"Tier: {tier_color}{tier_name} (Score {tier_score}/12 | Stars: {server_rating}){Colors.RESET}"
                     )
 
-                    # ── CHECK 2: EXECUTE ONLY IF EXOTIC/LEGENDARY AND RATING >= 10 ──
-                    if is_target_species and rating_score >= MIN_TARGET_RATING:
+                    # ── CHECK 2: EXECUTE ONLY IF EXOTIC/LEGENDARY AND TIER SCORE >= 10 (A+, S, S+) ──
+                    if is_target_species and tier_score >= MIN_TARGET_SCORE:
                         self.high_tier_encounters += 1
                         
                         # Execute Combat & Capture Phase!
@@ -152,7 +158,7 @@ class AutoHunter:
                             
                             # External Alert
                             Notifier.send_external_alert(
-                                target_name=f"{actual_name} [Tier {rating_name}]",
+                                target_name=f"{actual_name} [Tier {tier_name}]",
                                 target_mid=enemy_mid,
                                 rarity=enemy_rar,
                                 spot_name=spot_label,
@@ -163,9 +169,9 @@ class AutoHunter:
                             
                             print(f"\n{Colors.GREEN}{Colors.BOLD}✅ Tangkapan berhasil disimpan! Melanjutkan rotasi hunting...{Colors.RESET}\n")
 
-                    elif is_target_species and rating_score < MIN_TARGET_RATING:
+                    elif is_target_species and tier_score < MIN_TARGET_SCORE:
                         # Exotic/Legendary but rating is low (e.g. F- to A)
-                        print(f"{Colors.DIM}  [-] {actual_name} [{enemy_rar}] Rating {rating_name} ({rating_score}/12) < A+ → Auto Flee.{Colors.RESET}")
+                        print(f"{Colors.DIM}  [-] {actual_name} [{enemy_rar}] Tier {tier_name} (Score {tier_score}/12) < A+ → Auto Flee.{Colors.RESET}")
                         self.flee_count += 1
                         self.client.flee_and_leave(match_id)
 
