@@ -122,31 +122,35 @@ class AutoHunter:
                     enemy_rar = enemy_info.get("rarity", "Common") if enemy_info else "Common"
                     actual_name = enemy_info.get("name", enemy_name) if enemy_info else enemy_name
                     
-                    server_rating = enemy_miscrit.get("rating", 0)
-                    tier_name, tier_score = get_tier_info(server_rating)
+                    capture_chance = initial_battle_data.get("capture_chance", 1)
 
-                    rc = RARITY_COLORS.get(enemy_rar, Colors.WHITE)
-                    ts = time.strftime("%H:%M:%S")
+                    # ── TARGET QUALIFICATION ──
+                    # 1. Legendary: Tangkap SEMUA tier (C+ s/d S+, tidak ada F-)
+                    is_legendary = (enemy_rar == "Legendary")
 
-                    # ── CHECK 1: MUST BE EXOTIC OR LEGENDARY TARGET ──
-                    is_target_species = (
-                        enemy_rar in ("Exotic", "Legendary")
-                        or enemy_mid == target_id
-                        or target_name.lower() in actual_name.lower()
-                    )
+                    # 2. Exotic: Tangkap A+ s/d S+ (Score >= 10, atau Chance <= 1% untuk akun < 150)
+                    is_exotic_target = False
+                    if enemy_rar == "Exotic":
+                        if server_rating > 0:
+                            is_exotic_target = (tier_score >= MIN_TARGET_SCORE)
+                        else:
+                            # Berdasarkan tabel capture chance di 100% HP: A s/d S+ = 1%, B+ = 3%
+                            is_exotic_target = (capture_chance <= 1)
+
+                    should_catch = (is_legendary or is_exotic_target) and is_target_species
 
                     # Print encounter line
-                    tier_color = Colors.GREEN if (tier_score >= MIN_TARGET_SCORE and is_target_species) else Colors.DIM
+                    tier_color = Colors.GREEN if should_catch else Colors.DIM
                     print(
                         f"{Colors.DIM}[{ts}]{Colors.RESET} "
                         f"{Colors.CYAN}#{self.total_encounters:<4d}{Colors.RESET} "
                         f"[{spot_label:<20s}] → "
                         f"{rc}{actual_name} (#{enemy_mid}) [{enemy_rar}]{Colors.RESET} | "
-                        f"Tier: {tier_color}{tier_name} (Score {tier_score}/12 | Stars: {server_rating}){Colors.RESET}"
+                        f"Tier: {tier_color}{tier_name} (Score {tier_score}/12 | Stars: {server_rating} | Chance: {capture_chance}%){Colors.RESET}"
                     )
 
-                    # ── CHECK 2: EXECUTE ONLY IF EXOTIC/LEGENDARY AND TIER SCORE >= 10 (A+, S, S+) ──
-                    if is_target_species and tier_score >= MIN_TARGET_SCORE:
+                    # ── EXECUTE COMBAT IF QUALIFIED ──
+                    if should_catch:
                         self.high_tier_encounters += 1
                         
                         # Execute Combat & Capture Phase!
@@ -158,7 +162,7 @@ class AutoHunter:
                             
                             # External Alert
                             Notifier.send_external_alert(
-                                target_name=f"{actual_name} [Tier {tier_name}]",
+                                target_name=f"{actual_name} [{enemy_rar} - Tier {tier_name}]",
                                 target_mid=enemy_mid,
                                 rarity=enemy_rar,
                                 spot_name=spot_label,
@@ -169,9 +173,9 @@ class AutoHunter:
                             
                             print(f"\n{Colors.GREEN}{Colors.BOLD}✅ Tangkapan berhasil disimpan! Melanjutkan rotasi hunting...{Colors.RESET}\n")
 
-                    elif is_target_species and tier_score < MIN_TARGET_SCORE:
-                        # Exotic/Legendary but rating is low (e.g. F- to A)
-                        print(f"{Colors.DIM}  [-] {actual_name} [{enemy_rar}] Tier {tier_name} (Score {tier_score}/12) < A+ → Auto Flee.{Colors.RESET}")
+                    elif is_target_species and not should_catch:
+                        # Exotic with low tier (B+ or below)
+                        print(f"{Colors.DIM}  [-] {actual_name} [{enemy_rar}] Tier {tier_name} (Chance {capture_chance}%) < A+ → Auto Flee.{Colors.RESET}")
                         self.flee_count += 1
                         self.client.flee_and_leave(match_id)
 

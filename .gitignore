@@ -6,11 +6,16 @@ __pycache__/
 .venv/
 venv/
 
-# Sensitive Credentials
+# Sensitive Credentials (Always Ignored)
+account.json
+*/account.json
 data/account.json
 *.token
+*.pem
+*.key
 
-# Logs & Dumps
+# Sniffer Captures & Logs
 *.log
-mitm_sniffer/*log*.json
-mitm_sniffer/captured_battles/
+sniffer/captured_battles/
+sniffer/captured_events.json
+sniffer/*log*.json

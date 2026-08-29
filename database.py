@@ -29,12 +29,15 @@ class Database:
                         elem = m.get("element", "Misc")
                         locs = m.get("locations", {})
                         
+                        abilities = m.get("abilities", [])
+                        
                         self.miscrits[mid] = {
                             "id": mid,
                             "name": name,
                             "rarity": rar,
                             "element": elem,
-                            "locations": locs
+                            "locations": locs,
+                            "abilities": abilities
                         }
             except Exception as e:
                 print(f"[!] Gagal membaca database miscrits: {e}")
